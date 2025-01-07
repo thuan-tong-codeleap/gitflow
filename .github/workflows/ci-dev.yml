@@ -1,0 +1,26 @@
+name: Develop Branch CI	
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Echo message
+        run: echo "Changes on develop branch detected, running Docker build"
+
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          push: false
+          tags: node-app:latest
